@@ -123,14 +123,14 @@
         'click',
         $.proxy(this.mapClicked, this)
       );
- 
+
       // add dragend even listener on the map
       google.maps.event.addListener(
         this.map,
         'dragend',
         $.proxy(this.mapDragged, this)
       );
-      
+
       // add idle even listener on the map
       google.maps.event.addListener(
         this.map,
@@ -411,6 +411,7 @@
         this.marker.setPosition(geometry.location);
         this.marker.setAnimation(this.options.markerOptions.animation);
       }
+      google.maps.event.trigger(this.map, 'resize');
     },
 
     // Update the elements based on a single places or geocoding response
@@ -499,7 +500,7 @@
     mapClicked: function(event) {
         this.trigger("geocode:click", event.latLng);
     },
-   
+
     // Fire the "geocode:mapdragged" event and pass the current position of the map center.
     mapDragged: function(event) {
       this.trigger("geocode:mapdragged", this.map.getCenter());
